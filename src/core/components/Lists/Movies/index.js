@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import style from "./style.js";
 import theme from "@core/theme/ligth";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import div from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Grade from "@material-ui/icons/Grade";
 import LoadImage from "@core/components/LoadImage";
@@ -25,7 +24,7 @@ export default function Movies() {
   const { movies = [], loadingMore, onReachBottom } = useContext(FeedContext);
   useIntersection(
     ".movie-item:last-child",
-    entries => {
+    (entries) => {
       const [entry] = entries;
       const reachBottom = entry.isIntersecting === true && !loadingMore;
       if (reachBottom) {
@@ -37,7 +36,7 @@ export default function Movies() {
 
   useIntersection(
     ".comment-container",
-    entries => {
+    (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           console.log("movie: ", entry.target.getAttribute("data-movie-id"));
@@ -72,7 +71,7 @@ export default function Movies() {
             <div
               key={id}
               style={{
-                animationDelay: `${(i / entire.length) * 0.5}s`
+                animationDelay: `${(i / entire.length) * 0.5}s`,
               }}
               className={`appear ${classes.container} movie-item `}
             >

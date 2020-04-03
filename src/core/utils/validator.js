@@ -9,6 +9,7 @@ function allSpace(data = "") {
 }
 
 export function validText(data = "") {
+  // eslint-disable-next-line
   const result = /[(\r\n|\r|\n)A-Za-záéëËíóúÁÉÍÓÚñÑ0-9_:#$&/*¡;%?=()"\]\, /[/.-]{2,500}/gi.exec(
     data
   );
