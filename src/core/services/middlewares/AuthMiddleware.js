@@ -1,9 +1,9 @@
 import history from "@core/components/History";
 
-export default () => {
-  const isAuthenticated = !!window.localStorage.getItem("isAuthenticated");
-  console.log({ isAuthenticated });
-  if (!isAuthenticated && window.location.pathname !== "/login") {
-    history.push("/login");
+export default (_prevResult, isAuthenticated) => {
+  const shouldGoToFeed =
+    isAuthenticated && window.location.pathname === "/login";
+  if (shouldGoToFeed) {
+    history.push("/");
   }
 };

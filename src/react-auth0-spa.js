@@ -8,6 +8,7 @@ export const Auth0Context = React.createContext();
 export const useAuth0 = () => useContext(Auth0Context);
 export const Auth0Provider = ({
   children,
+  authStateChange,
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
   ...initOptions
 }) => {
@@ -44,6 +45,11 @@ export const Auth0Provider = ({
     initAuth0();
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    console.log({ isAuthenticated, authStateChange });
+    if (authStateChange) authStateChange(isAuthenticated);
+  }, [isAuthenticated, authStateChange]);
 
   const loginWithPopup = async (params = {}) => {
     setPopupOpen(true);

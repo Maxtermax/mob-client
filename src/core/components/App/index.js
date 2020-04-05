@@ -4,15 +4,10 @@ import Layout from "@core/components/Layout";
 import PlaceCenter from "@core/components/PlaceCenter";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import History from "@core/components/History";
-// import NavBar from "@core/components/NavBar";
 import { useAuth0 } from "@/react-auth0-spa.js";
-import middlewares from "@core/services/middlewares";
-
-History.listen(middlewares);
 
 function App() {
   const { loading } = useAuth0();
-
   if (loading) {
     return (
       <PlaceCenter>

@@ -11,12 +11,12 @@ export default makeStyles(() => ({
     width: "100%",
     height: "100%",
     transition: "all 0.1s ease-in",
-    marginBottom: "10px"
+    marginBottom: "10px",
   },
   cover: {
-    backgroundSize: "cover"
+    backgroundSize: "cover",
   },
   contain: {
-    backgroundSize: "contain"
-  }
+    backgroundSize: "contain",
+  },
 }));

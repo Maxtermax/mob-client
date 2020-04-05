@@ -6,6 +6,7 @@ export default makeStyles(() => ({
     display: "flex",
     placeItems: "center",
     placeContent: "center",
-    height: "100%"
-  }
+    height: "100%",
+    minHeight: "270px",
+  },
 }));

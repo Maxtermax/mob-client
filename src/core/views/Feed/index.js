@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { prefetch } from "react-suspense-fetch";
 import { fetchMovies } from "@core/services/Movies";
+import { StreamPromises, fetchComments } from "@core/services";
 import Movies from "@core/components/Lists/Movies";
 import PlaceCenter from "@core/components/PlaceCenter";
 import NavBar from "@core/components/NavBar";
@@ -11,9 +12,13 @@ import { useAddMovieEffect } from "./useAddMovieEffect";
 import { useSetYearEffect } from "./useSetYearEffect";
 import { useFethMoreEffect } from "./useFethMoreEffect";
 import { useAuth0 } from "@/react-auth0-spa.js";
+import uniqueId from "@core/utils/uniqueId";
+import useStyle from "./style.js";
 const initialFetch = prefetch(fetchMovies, {});
+const httpStream = new StreamPromises(1);
 
 export default function Feed() {
+  const classes = useStyle();
   const [fetchResult, setFetchResult] = useState(initialFetch);
   const [movies, setMovies] = useState(fetchResult.results);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -21,6 +26,16 @@ export default function Feed() {
   const [page, setPage] = useState(null);
   const [year, setYear] = useState(null);
   const { user } = useAuth0();
+
+  useEffect(() => {
+    httpStream.push({
+      id: uniqueId(),
+      onResponse(response) {
+        console.log({ response });
+      },
+      definition: () => fetchComments({ token: "", path: "/test" }),
+    });
+  }, []);
 
   useFethMoreEffect({ page, setLoadingMore, year, setFetchResult });
 
@@ -55,12 +70,15 @@ export default function Feed() {
         year,
         onYearChange,
         movies,
+        user,
       }}
     >
       <>
-        <NavBar></NavBar>
-        <YearSelector></YearSelector>
-        <Movies></Movies>
+        <NavBar user={user}></NavBar>
+        <div className={classes.wrapContent}>
+          <YearSelector></YearSelector>
+          <Movies></Movies>
+        </div>
       </>
     </FeedContext.Provider>
   );

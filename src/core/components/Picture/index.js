@@ -11,7 +11,7 @@ export default function Picture(props) {
       <div
         style={{
           backgroundImage: `url(${src})`,
-          opacity: loaded ? "1" : "0"
+          opacity: loaded ? "1" : "0",
         }}
         className={`${size === "contain" ? classes.contain : ""} ${
           size === "cover" ? classes.cover : ""
