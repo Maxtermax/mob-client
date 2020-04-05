@@ -3,13 +3,14 @@ import { prefetch } from "react-suspense-fetch";
 import { fetchMovies } from "@core/services/Movies";
 import Movies from "@core/components/Lists/Movies";
 import PlaceCenter from "@core/components/PlaceCenter";
+import NavBar from "@core/components/NavBar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import YearSelector from "@core/components/Selects/YearSelector";
 import { FeedContext } from "@core/context/FeedContext";
 import { useAddMovieEffect } from "./useAddMovieEffect";
 import { useSetYearEffect } from "./useSetYearEffect";
 import { useFethMoreEffect } from "./useFethMoreEffect";
-// import { useAuth0 } from "@/react-auth0-spa.js";
+import { useAuth0 } from "@/react-auth0-spa.js";
 const initialFetch = prefetch(fetchMovies, {});
 
 export default function Feed() {
@@ -19,7 +20,7 @@ export default function Feed() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(null);
   const [year, setYear] = useState(null);
-  // const { user } = useAuth0();
+  const { user } = useAuth0();
 
   useFethMoreEffect({ page, setLoadingMore, year, setFetchResult });
 
@@ -57,6 +58,7 @@ export default function Feed() {
       }}
     >
       <>
+        <NavBar></NavBar>
         <YearSelector></YearSelector>
         <Movies></Movies>
       </>

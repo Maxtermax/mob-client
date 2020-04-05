@@ -31,11 +31,11 @@ export const Auth0Provider = ({
       }
 
       const isAuthenticated = await auth0FromHook.isAuthenticated();
-
+      window.localStorage.setItem("isAuthenticated", isAuthenticated);
       setIsAuthenticated(isAuthenticated);
 
+      const user = await auth0FromHook.getUser();
       if (isAuthenticated) {
-        const user = await auth0FromHook.getUser();
         setUser(user);
       }
 
