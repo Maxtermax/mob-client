@@ -11,21 +11,21 @@ import moment from "moment";
 import "moment/locale/es";
 moment.locale("es");
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   inline: {
-    display: "inline"
-  }
+    display: "inline",
+  },
 }));
 
 export default function UserComments(props) {
   const { comments = [] } = props;
   const classes = useStyles();
 
-  return comments.map(({ id, text, createAt, user }) => (
+  return comments.map(({ id, text, createAt, createdAt, user }) => (
     <List key={id} className={classes.root}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
@@ -44,7 +44,9 @@ export default function UserComments(props) {
                 style={{ display: "block" }}
                 color="textPrimary"
               >
-                {moment(new Date(createAt)).format("dddd, MMMM Do YYYY")}
+                {moment(new Date(createAt || createdAt)).format(
+                  "dddd, MMMM Do YYYY"
+                )}
               </Typography>
               {text}
             </React.Fragment>
