@@ -1,13 +1,14 @@
-import Movies from "./Movies";
+import { fetchMovies } from "./Movies";
 import middlewares from "./middlewares";
 import StreamPromises from "./StreamPromises";
-import fetchComments from "./fetchComments";
-import createComment from "./createComment";
-const BASE_URL = "https://mobapp-api.herokuapp.com";
+import { fetchComments, createComment } from "./Comments";
+import { registerUser } from "./Users";
+export const BASE_URL = "https://mobapp-api.herokuapp.com";
 
 export default {
   BASE_URL,
-  Movies,
+  fetchMovies,
+  registerUser,
   middlewares,
   fetchComments,
   createComment,

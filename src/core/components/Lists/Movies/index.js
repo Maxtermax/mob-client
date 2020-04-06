@@ -13,15 +13,20 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { FeedContext } from "@core/context/FeedContext";
 import useIntersection from "@core/hooks/useIntersection";
+import services from "@core/services";
 import moment from "moment";
 import "moment/locale/es";
 moment.locale("es");
+const { StreamPromises } = services;
+export const httpStream = new StreamPromises(1)
 
 export default function Movies() {
   const classes = style();
   const [displayModal, setDisplayModal] = useState(false);
   const [movieSelected, setMovieSelected] = useState({});
-  const { movies = [], loadingMore, onReachBottom } = useContext(FeedContext);
+  const { movies = [], loadingMore, onReachBottom, userId } = useContext(
+    FeedContext
+  );
   useIntersection(
     ".movie-item:last-child",
     (entries) => {
@@ -34,17 +39,6 @@ export default function Movies() {
     [movies]
   );
 
-  useIntersection(
-    ".comment-container",
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          console.log("movie: ", entry.target.getAttribute("data-movie-id"));
-        }
-      }
-    },
-    [movies]
-  );
 
   function handleConfirmRate(rate) {
     setDisplayModal(false);
@@ -74,6 +68,7 @@ export default function Movies() {
                 animationDelay: `${(i / entire.length) * 0.5}s`,
               }}
               className={`appear ${classes.container} movie-item `}
+              data-movie-id={id}
             >
               <div className={classes.container_item}>
                 <Typography
@@ -117,7 +112,7 @@ export default function Movies() {
                     Puntuar
                   </span>
                 </Button>
-                <Comments movie={movie}></Comments>
+                <Comments movies={movies} userId={userId} movie={movie}></Comments>
               </div>
             </div>
           );
@@ -130,7 +125,7 @@ export default function Movies() {
         ></RankingModal>
       </div>
       {loadingMore && (
-        <div style={{ textAlign: "center", marginTop: "-50px" }}>
+        <div style={{ textAlign: "center", marginTop: "-20px" }}>
           <CircularProgress></CircularProgress>
         </div>
       )}

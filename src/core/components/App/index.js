@@ -26,18 +26,4 @@ function App() {
   );
 }
 
-/*
-function App() {
-  return (
-    <div>
-      <Router history={History}>
-        <Switch>
-          <Layout></Layout>
-        </Switch>
-      </Router>
-    </div>
-  );
-}
-*/
-
 export default App;

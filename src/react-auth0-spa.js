@@ -47,7 +47,6 @@ export const Auth0Provider = ({
   }, []);
 
   useEffect(() => {
-    console.log({ isAuthenticated, authStateChange });
     if (authStateChange) authStateChange(isAuthenticated);
   }, [isAuthenticated, authStateChange]);
 

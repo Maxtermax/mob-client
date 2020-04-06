@@ -12,7 +12,6 @@ const NavBar = (props) => {
   const { logout } = useAuth0();
   const classes = useStyle();
   const { user = {} } = props;
-  console.log({ user });
   const { picture = "" } = user;
   const [anchorEl, setAnchorEl] = useState(null);
 
